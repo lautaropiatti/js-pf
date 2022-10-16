@@ -1,4 +1,5 @@
-const IVA = 21; // %
+const almacen = crearAlmacen(prompt('Ingrese el nombre para el nuevo almacén a agregar productos'));
+
 let cantidadIteraciones = 0;
 
 function setearIteraciones() {
@@ -12,25 +13,18 @@ function setearIteraciones() {
     } while (!(cantidadIteraciones >= 1 && cantidadIteraciones <= 10));
 }
 
-function mostrarEstadoStock(valorNetoStock, cantTotalStock) {
-    alert('Valor total neto del stock: $ ' + valorNetoStock + '\nValor total del stock más IVA (21%): $' + calcularIVA(valorNetoStock) + '\nCantidad total de productos en stock: ' + cantTotalStock);
-}
-
-function ingresarProductos() {
-    let stockTotal = 0;
-    let valorStockTotal = 0;
-
-    for (let i = 1; i <= cantidadIteraciones; i++) {
-        let stock = parseInt(prompt('Ingrese el stock del artículo N° ' + i));
-        stockTotal += stock;
-
-        let precio = parseFloat(prompt('Ingrese el precio del artículo N° ' + i));
-        valorStockTotal += precio * stock;
-    }
-
-    mostrarEstadoStock(valorStockTotal, stockTotal);
-}
-
 setearIteraciones();
 
+function ingresarProductos() {
+    for (let i = 1; i <= cantidadIteraciones; i++) {
+        let titulo = prompt('Ingrese el título del artículo N° ' + i);
+        let precio = parseFloat(prompt('Ingrese el precio del artículo N° ' + i));
+        let stock = parseInt(prompt('Ingrese el stock del artículo N° ' + i));
+
+        crearProducto(titulo, precio, stock, almacen);
+    }
+}
+
 ingresarProductos();
+
+mostrarEstadoStock(almacen);

@@ -1,9 +1,0 @@
-class Inventario {
-    constructor() {
-
-    }
-
-    mostrarEstado() {
-        
-    }
-}
