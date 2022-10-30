@@ -1,5 +1,5 @@
 function calcularIVA(importeNeto) {
-    let valorFinal = importeNeto * (1 + (IVA / 100)).toFixed(2);
+    let valorFinal = (importeNeto * (1 + (IVA / 100))).toFixed(2);
     return valorFinal;
 }
 
@@ -53,7 +53,7 @@ function crearProducto(titulo, precio, stock, almacen) {
 
     almacen.productos.push(nuevoProducto);
     almacen.valorStock += nuevoProducto.precio * nuevoProducto.stock; 
-    almacen.stockTotal += nuevoProducto.stock;
+    almacen.stockTotal += parseInt(nuevoProducto.stock);
 
     storageSave();
     return nuevoProducto;

@@ -92,7 +92,9 @@
                     <h4 class="modal-title">Agregar Almacén</h4><button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
-                    <form id="agregar-almacen"><label class="form-label" for="almacen-sucursal">Sucursal</label><input class="form-control" type="text" id="almacen-sucursal" placeholder="Ingrese nombre de sucursal" name="almacen-sucursal"></form>
+                    <form id="agregar-almacen"><label class="form-label" for="almacen-sucursal">Sucursal</label><input class="form-control" type="text" id="almacen-sucursal" placeholder="Ingrese nombre de sucursal" name="almacen-sucursal" required>
+                        <input type="submit" value="" hidden>
+                    </form>
                 </div>
                 <div class="modal-footer"><button class="btn btn-light" type="button" data-bs-dismiss="modal">Cancelar</button><button class="btn btn-primary" id="agregar-almacen-save" type="button">Guardar</button></div>
             </div>
@@ -113,6 +115,7 @@
                         <fieldset class="pt-2"><label class="form-label" for="producto-titulo">Título</label><input class="form-control" type="text" id="producto-titulo" placeholder="Ingrese el título del producto" name="producto-titulo" required="" maxlength="64"></fieldset>
                         <fieldset class="pt-2"><label class="form-label" for="producto-precio">Precio</label><input class="form-control" type="number" id="producto-precio" name="producto-precio" placeholder="$" required=""></fieldset>
                         <fieldset class="pt-2"><label class="form-label" for="producto-stock">Unidades en stock</label><input class="form-control" type="number" id="producto-stock" name="producto-stock" required=""></fieldset>
+                        <input type="submit" value="" hidden>
                     </form>
                 </div>
                 <div class="modal-footer"><button class="btn btn-light" type="button" data-bs-dismiss="modal">Cancelar</button><button class="btn btn-primary" id="agregar-producto-save" type="button">Guardar</button></div>

@@ -83,7 +83,7 @@ agregarAlmacenForm.addEventListener('submit', (event) => {
 
 agregarAlmacenSave.addEventListener('click', (event) => {
     event.preventDefault();
-    handleAgregarAlmacenSubmit();
+    agregarAlmacenForm.requestSubmit(); // Se usa el submit del form para mantener la validación HTML
 });
 
 mostrarAlmacenSelect.addEventListener('change', (event) => {
@@ -97,5 +97,5 @@ agregarProductoForm.addEventListener('submit', (event) => {
 
 agregarProductoSave.addEventListener('click', (event) => {
     event.preventDefault();
-    handleAgregarProductoSubmit();
+    agregarProductoForm.requestSubmit(); // Se usa el submit del form para mantener la validación HTML
 });
