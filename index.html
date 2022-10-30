@@ -5,14 +5,120 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Simulador interactivo</title>
-    <script src="js/variables.js"></script>
-    <script src="js/functions.js" defer></script>
-    <script src="js/almacen.class.js" defer></script>
+    <!-- Bootstrap -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/css/bootstrap.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/js/bootstrap.bundle.min.js" defer></script>
+    <script src="//cdn.jsdelivr.net/npm/sweetalert2@11" defer></script>
+    <!-- Classes -->
+    <script src="js/almacen.class.js"></script>
     <script src="js/producto.class.js"></script>
+    <!-- Inicialización variables -->
+    <script src="js/variables.js" defer></script>
+    <!-- Scripts app -->
+    <script src="js/functions.js" defer></script>
+    <script src="js/templates.js" defer></script>
     <script src="js/app.js" defer></script>
 </head>
+
 <body>
-    <h1>Simulador stock:</h1>
-    <p>Cargar cantidad y precio de productos para calcular el valor total del stock con y sin IVA, y cantidad de existencias totales.</p>
+    <nav class="navbar navbar-dark navbar-expand-md sticky-top bg-dark">
+        <div class="container"><a class="navbar-brand" href="#">Simulador stock</a><button data-bs-toggle="collapse" class="navbar-toggler" data-bs-target="#navcol-1"><span class="visually-hidden">Toggle navigation</span><span class="navbar-toggler-icon"></span></button>
+            <div class="collapse navbar-collapse" id="navcol-1">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item"><a class="nav-link" href="#almacenes">Almacenes</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#productos">Productos</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#estados">Estados</a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+    <section class="py-5">
+        <div class="container" id="almacenes">
+            <h1 class="mb-4">Almacenes</h1>
+            <div class="table-responsive">
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th>Sucursal</th>
+                            <th>Stock total</th>
+                            <th>Valor stock (Neto)</th>
+                            <th>Valor stock (Final)</th>
+                            <th>Acciones</th>
+                        </tr>
+                    </thead>
+                    <tbody id="almacenes-tb">
+                        <!-- Listado almacenes -->
+                    </tbody>
+                </table>
+            </div>
+            <div class="text-center"><button class="btn btn-primary" type="button" data-bs-target="#modal-agregar-almacen" data-bs-toggle="modal">Agregar</button></div>
+        </div>
+        <div class="container pt-4" id="productos">
+            <h1 class="mb-4">Productos</h1>
+            <form><label class="form-label" for="seleccione-almacen-mostrar">Seleccione un almacén para mostrar los productos</label><select class="form-select mb-3" id="seleccione-almacen-mostrar" name="seleccione-almacen-mostrar">
+                    <option value="..." selected="" disabled>...</option>
+                    <!-- Opciones de almacenes -->
+                </select></form>
+            <div class="table-responsive">
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th>Título</th>
+                            <th>Precio</th>
+                            <th>Stock</th>
+                            <th>Acciones</th>
+                        </tr>
+                    </thead>
+                    <tbody id="productos-tb">
+                        <tr>
+                            <td>
+                                <span class="text-secondary">Selecciona un almacén</span>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <div class="text-center"><button class="btn btn-primary" type="button" data-bs-target="#modal-agregar-producto" data-bs-toggle="modal">Agregar</button></div>
+        </div>
+        <div class="container pt-4" id="estados">
+            <h1 class="mb-4">Estados</h1>
+            <p>Aquí se mostrarán reportes y estados totales...</p>
+        </div>
+    </section>
+    <div class="modal fade" role="dialog" tabindex="-1" id="modal-agregar-almacen">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title">Agregar Almacén</h4><button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <form id="agregar-almacen"><label class="form-label" for="almacen-sucursal">Sucursal</label><input class="form-control" type="text" id="almacen-sucursal" placeholder="Ingrese nombre de sucursal" name="almacen-sucursal"></form>
+                </div>
+                <div class="modal-footer"><button class="btn btn-light" type="button" data-bs-dismiss="modal">Cancelar</button><button class="btn btn-primary" id="agregar-almacen-save" type="button">Guardar</button></div>
+            </div>
+        </div>
+    </div>
+    <div class="modal fade" role="dialog" tabindex="-1" id="modal-agregar-producto">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title">Agregar Producto</h4><button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <form id="agregar-producto">
+                        <fieldset><label class="form-label" for="producto-sucursal">Seleccione la sucursal para agregar el producto</label><select class="form-select" id="producto-sucursal" name="producto-sucursal" required="">
+                                <option value="..." selected="" disabled>...</option>
+                                <!-- Opciones de almacenes -->                                
+                            </select></fieldset>
+                        <fieldset class="pt-2"><label class="form-label" for="producto-titulo">Título</label><input class="form-control" type="text" id="producto-titulo" placeholder="Ingrese el título del producto" name="producto-titulo" required="" maxlength="64"></fieldset>
+                        <fieldset class="pt-2"><label class="form-label" for="producto-precio">Precio</label><input class="form-control" type="number" id="producto-precio" name="producto-precio" placeholder="$" required=""></fieldset>
+                        <fieldset class="pt-2"><label class="form-label" for="producto-stock">Unidades en stock</label><input class="form-control" type="number" id="producto-stock" name="producto-stock" required=""></fieldset>
+                    </form>
+                </div>
+                <div class="modal-footer"><button class="btn btn-light" type="button" data-bs-dismiss="modal">Cancelar</button><button class="btn btn-primary" id="agregar-producto-save" type="button">Guardar</button></div>
+            </div>
+        </div>
+    </div>
 </body>
+
 </html>
