@@ -1,22 +1,22 @@
-function tplAlmacen(almacen) {
-    return `<tr>
+const tplAlmacen = (almacen) => {
+    return `<tr id="${almacen.slug}">
                 <td>${almacen.sucursal}</td>
                 <td>${almacen.stockTotal}</td>
                 <td>$ ${almacen.valorStock}</td>
                 <td>$ ${calcularIVA(almacen.valorStock)}</td>
-                <td><button class="btn btn-danger disabled" type="button">Borrar</button></td>
+                <td><button class="btn btn-danger btn-borrar-almacen disabled" type="button">Borrar</button></td>
             </tr>`;
 }
 
-function tplAlmacenOption(almacen) {
-    return `<option value="${almacen.sucursal.toLowerCase()}">${almacen.sucursal}</option>`;    
+const tplAlmacenOption = (almacen) => {
+    return `<option value="${almacen.slug}">${almacen.sucursal}</option>`;    
 }
 
-function tplProducto(producto) {
-    return `<tr>
+const tplProducto = (producto) => {
+    return `<tr id="${producto.slug}">
                 <td>${producto.titulo}</td>
                 <td>$ ${producto.precio}</td>
                 <td>${producto.stock}</td>
-                <td><button class="btn btn-danger" type="button">Borrar</button></td>
+                <td><button class="btn btn-danger btn-borrar-producto" type="button" data-delete="${producto.slug}">Borrar</button></td>
             </tr>`;    
 }

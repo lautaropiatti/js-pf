@@ -8,10 +8,13 @@
     <!-- Bootstrap -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/css/bootstrap.min.css">
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/js/bootstrap.bundle.min.js" defer></script>
+    <!-- Sweet Alert -->
     <script src="//cdn.jsdelivr.net/npm/sweetalert2@11" defer></script>
+    <!-- Slugify -->
+    <script src="js/lib/slugify.js" defer></script>
     <!-- Classes -->
-    <script src="js/almacen.class.js"></script>
-    <script src="js/producto.class.js"></script>
+    <script src="js/classes/almacen.class.js"></script>
+    <script src="js/classes/producto.class.js"></script>
     <!-- Inicialización variables -->
     <script src="js/variables.js" defer></script>
     <!-- Scripts app -->
@@ -113,7 +116,7 @@
                                 <!-- Opciones de almacenes -->                                
                             </select></fieldset>
                         <fieldset class="pt-2"><label class="form-label" for="producto-titulo">Título</label><input class="form-control" type="text" id="producto-titulo" placeholder="Ingrese el título del producto" name="producto-titulo" required="" maxlength="64"></fieldset>
-                        <fieldset class="pt-2"><label class="form-label" for="producto-precio">Precio</label><input class="form-control" type="number" id="producto-precio" name="producto-precio" placeholder="$" required=""></fieldset>
+                        <fieldset class="pt-2"><label class="form-label" for="producto-precio">Precio</label><input class="form-control" type="number" id="producto-precio" name="producto-precio" placeholder="$" required="" step="0.01"></fieldset>
                         <fieldset class="pt-2"><label class="form-label" for="producto-stock">Unidades en stock</label><input class="form-control" type="number" id="producto-stock" name="producto-stock" required=""></fieldset>
                         <input type="submit" value="" hidden>
                     </form>

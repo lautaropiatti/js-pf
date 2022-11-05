@@ -12,3 +12,9 @@ const mostrarAlmacenSelect = document.querySelector('#seleccione-almacen-mostrar
 
 const modalAgregarAlmacen = new bootstrap.Modal('#modal-agregar-almacen');
 const modalAgregarProducto = new bootstrap.Modal('#modal-agregar-producto');
+const modalAgregarProductoEl = document.querySelector('#modal-agregar-producto');
+
+// Guardar opciones temporales
+const OPTIONS = {
+    productosAlmacenSeleccionado: '...'
+}

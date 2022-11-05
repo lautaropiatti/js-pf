@@ -1,16 +1,16 @@
-function calcularIVA(importeNeto) {
+const calcularIVA = (importeNeto) => {
     let valorFinal = (importeNeto * (1 + (IVA / 100))).toFixed(2);
     return valorFinal;
 }
 
-function storageSave() {
+const storageSave = () => {
     // Guardar almacenes
     if (ALMACENES.length > 0) {
         localStorage.setItem('ALMACENES', JSON.stringify(ALMACENES));
     }
 }
 
-function storageRead() {
+const storageRead = () => {
     // Recuperar almacenes
     if (localStorage.getItem('ALMACENES')) {
         let almacenesRecuperados = JSON.parse(localStorage.getItem('ALMACENES'));
@@ -28,8 +28,8 @@ function storageRead() {
     }
 }
 
-function crearAlmacen(sucursal) {
-    if (ALMACENES.some(element => element.sucursal.toLowerCase() === sucursal.toLowerCase())) {
+const crearAlmacen = (sucursal) => {
+    if (ALMACENES.some(almacen => almacen.slug === stringToSlug(sucursal))) {
         alert('⛔ Ese almacen ya existe');
         return;
     }
@@ -48,18 +48,35 @@ function crearAlmacen(sucursal) {
     return nuevoAlmacen;
 }
 
-function crearProducto(titulo, precio, stock, almacen) {
+const crearProducto = (titulo, precio, stock, almacen) => {
     let nuevoProducto = new Producto(titulo, precio, stock);
 
     almacen.productos.push(nuevoProducto);
-    almacen.valorStock += nuevoProducto.precio * nuevoProducto.stock; 
-    almacen.stockTotal += parseInt(nuevoProducto.stock);
+    almacen.valorStock += parseFloat((nuevoProducto.precio * nuevoProducto.stock).toFixed(2)); 
+    almacen.stockTotal += nuevoProducto.stock;
 
     storageSave();
     return nuevoProducto;
 }
 
-// Devuelve el almacén que corresponda con ese nombre (sucursal)
-function getAlmacen(sucursal) {
-    return ALMACENES.find(almacen => almacen.sucursal.toLowerCase() === sucursal);
+/**
+ * Devuelve el almacén que corresponda con ese slug
+ * 
+ * @param {string} slug
+ * @returns {object} Almacen
+ */
+const getAlmacen = (slug) => {
+    return ALMACENES.find(almacen => almacen.slug === slug);
+}
+
+const borrarProducto = (slug, almacenSeleccionado) => {
+    let almacen = getAlmacen(almacenSeleccionado);
+    let index = almacen.productos.findIndex(producto => producto.slug === slug);
+    let producto = almacen.productos[index];
+    
+    (index !== -1) && almacen.productos.splice(index, 1);
+    almacen.valorStock -= parseFloat((producto.precio * producto.stock).toFixed(2));
+    almacen.stockTotal -= producto.stock;
+
+    storageSave();
 }
