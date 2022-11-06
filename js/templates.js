@@ -2,8 +2,8 @@ const tplAlmacen = (almacen) => {
     return `<tr id="${almacen.slug}">
                 <td>${almacen.sucursal}</td>
                 <td>${almacen.stockTotal}</td>
-                <td>$ ${almacen.valorStock}</td>
-                <td>$ ${calcularIVA(almacen.valorStock)}</td>
+                <td>$ ${almacen.valorStock.toFixed(2)}</td>
+                <td>$ ${calcularIVA(almacen.valorStock).toFixed(2)}</td>
                 <td><button class="btn btn-danger btn-borrar-almacen disabled" type="button">Borrar</button></td>
             </tr>`;
 }

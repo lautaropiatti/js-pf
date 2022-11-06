@@ -1,5 +1,5 @@
 const calcularIVA = (importeNeto) => {
-    let valorFinal = (importeNeto * (1 + (IVA / 100))).toFixed(2);
+    let valorFinal = importeNeto * (1 + (IVA / 100));
     return valorFinal;
 }
 
@@ -52,7 +52,7 @@ const crearProducto = (titulo, precio, stock, almacen) => {
     let nuevoProducto = new Producto(titulo, precio, stock);
 
     almacen.productos.push(nuevoProducto);
-    almacen.valorStock += parseFloat((nuevoProducto.precio * nuevoProducto.stock).toFixed(2)); 
+    almacen.valorStock += nuevoProducto.precio * nuevoProducto.stock;
     almacen.stockTotal += nuevoProducto.stock;
 
     storageSave();
@@ -75,7 +75,7 @@ const borrarProducto = (slug, almacenSeleccionado) => {
     let producto = almacen.productos[index];
     
     (index !== -1) && almacen.productos.splice(index, 1);
-    almacen.valorStock -= parseFloat((producto.precio * producto.stock).toFixed(2));
+    almacen.valorStock -= producto.precio * producto.stock;
     almacen.stockTotal -= producto.stock;
 
     storageSave();
