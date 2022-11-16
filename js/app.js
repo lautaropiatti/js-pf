@@ -21,6 +21,8 @@ const listarAlmacenes = () => {
     else {
         almacenesTb.innerHTML += '<tr><td><span class="text-danger">No hay almacenes</span></td></tr>';
     }
+    // Refrescar valor USD de referencia
+    valorUSDReferencia();
 }
 
 const handleAgregarAlmacenSubmit = () => {
@@ -121,6 +123,19 @@ const initBtnBorrarAlmacen = () => {
             });
         }
     });
+}
+
+const valorUSDReferencia = () => {
+    fetch('https://apiarg.herokuapp.com/api/mayorista')
+        .then((response) => response.json())
+        .then((data) => {
+            let valorUsdEl = document.querySelector('#valor-usd');
+            valorUsdEl.innerHTML = tplValorUSDReferencia(data);
+        })
+        .catch((error) => {
+            let valorUsdEl = document.querySelector('#valor-usd');
+            valorUsdEl.innerHTML = '<p class="text-center text-danger">No se puede obtener valor dólar</p>';
+        })
 }
 
 /*** INIT ***/

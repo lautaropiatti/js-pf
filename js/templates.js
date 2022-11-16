@@ -24,3 +24,11 @@ const tplProducto = (producto) => {
                 <td><button class="btn btn-danger btn-borrar-producto" type="button" data-delete="${producto.slug}">Borrar</button></td>
             </tr>`;    
 }
+
+const tplValorUSDReferencia = (data) => {
+    return `<p class="text-center">
+                <span class="fw-bold">Valor dólar mayorista de referencia:</span> 
+                Compra: $${data.compra} | 
+                Venta: $${data.venta}
+            </p>`
+}
