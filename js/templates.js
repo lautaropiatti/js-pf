@@ -4,7 +4,11 @@ const tplAlmacen = (almacen) => {
                 <td>${almacen.stockTotal}</td>
                 <td>$ ${almacen.valorStock.toFixed(2)}</td>
                 <td>$ ${calcularIVA(almacen.valorStock).toFixed(2)}</td>
-                <td><button class="btn btn-danger btn-borrar-almacen disabled" type="button">Borrar</button></td>
+                <td>
+                    <span class="d-inline-block btn-borrar-almacen-wrapper" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="Este almacén contiene productos">
+                        <button class="btn btn-danger btn-borrar-almacen disabled" type="button" data-delete="${almacen.slug}">Borrar</button>
+                    </span>
+                </td>
             </tr>`;
 }
 

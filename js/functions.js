@@ -80,3 +80,9 @@ const borrarProducto = (slug, almacenSeleccionado) => {
 
     storageSave();
 }
+
+const borrarAlmacen = (slug) => {
+    let index = ALMACENES.findIndex(almacen => almacen.slug === slug);
+    getAlmacen(ALMACENES[index]);
+    
+}
