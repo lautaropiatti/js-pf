@@ -30,15 +30,30 @@ const storageRead = () => {
 
 const crearAlmacen = (sucursal) => {
     if (ALMACENES.some(almacen => almacen.slug === stringToSlug(sucursal))) {
-        alert('⛔ Ese almacen ya existe');
+        Swal.fire({
+            icon: 'error',
+            title: 'Error',
+            text: 'Ese almacén ya existe',
+            confirmButtonText: 'Reintentar'
+        });
         return;
     }
     if (sucursal === '') {
-        alert('⛔ Por favor ingrese la sucursal del almacén');
+        Swal.fire({
+            icon: 'error',
+            title: 'Error',
+            text: 'Por favor ingrese la sucursal del almacén',
+            confirmButtonText: 'Reintentar'
+        });
         return;
     }
     if (sucursal.length > 64) {
-        alert('⛔ Ingrese una sucursal de almacén de menos de 64 caracteres');
+        Swal.fire({
+            icon: 'error',
+            title: 'Error',
+            text: 'Ingrese una sucursal de almacén de menos de 64 caracteres',
+            confirmButtonText: 'Reintentar'
+        });
         return;
     }
 
@@ -49,6 +64,25 @@ const crearAlmacen = (sucursal) => {
 }
 
 const crearProducto = (titulo, precio, stock, almacen) => {
+    if (almacen.productos.some(producto => producto.slug === stringToSlug(titulo))) {
+        Swal.fire({
+            icon: 'error',
+            title: 'Error',
+            text: 'Ese producto ya existe',
+            confirmButtonText: 'Reintentar'
+        });
+        return;
+    }
+    if (precio <= 0) {
+        Swal.fire({
+            icon: 'error',
+            title: 'Error',
+            text: 'Ingrese un precio válido',
+            confirmButtonText: 'Reintentar'
+        });
+        return;
+    }
+
     let nuevoProducto = new Producto(titulo, precio, stock);
 
     almacen.productos.push(nuevoProducto);
