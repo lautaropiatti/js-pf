@@ -8,14 +8,15 @@ const listarAlmacenes = () => {
         ALMACENES.forEach(almacen => {
             // Refresca tabla
             almacenesTb.innerHTML += tplAlmacen(almacen);
-            // Init BS tooltips
-            const tooltipTriggerList = document.querySelectorAll('[data-bs-toggle="tooltip"]');
-            const tooltipList = [...tooltipTriggerList].map(tooltipTriggerEl => new bootstrap.Tooltip(tooltipTriggerEl));
             // Refresca select Productos
             mostrarAlmacenSelect.innerHTML += tplAlmacenOption(almacen);
             // Refresca select Agregar Producto
             agregarProductoSelect.innerHTML += tplAlmacenOption(almacen);
         });
+        initBtnBorrarAlmacen();
+        // Init BS tooltips
+        const tooltipTriggerList = document.querySelectorAll('[data-bs-toggle="tooltip"]');
+        const tooltipList = [...tooltipTriggerList].map(tooltipTriggerEl => new bootstrap.Tooltip(tooltipTriggerEl));
     }
     else {
         almacenesTb.innerHTML += '<tr><td><span class="text-danger">No hay almacenes</span></td></tr>';
@@ -56,14 +57,19 @@ const initBtnBorrarProducto = () => {
 const listarProductos = (slugAlmacen) => {
     productosTb.innerHTML = '';
     let almacenSeleccionado = getAlmacen(slugAlmacen);
-    if (almacenSeleccionado.productos.length > 0) {
-        almacenSeleccionado.productos.forEach(producto => {
-            productosTb.innerHTML += tplProducto(producto);
+    if (almacenSeleccionado) {
+        if (almacenSeleccionado.productos.length > 0) {
+            almacenSeleccionado.productos.forEach(producto => {
+                productosTb.innerHTML += tplProducto(producto);
+            });
             initBtnBorrarProducto();
-        });                
+        }
+        else {
+            productosTb.innerHTML += '<tr><td><span class="text-danger">No hay productos en este almacén</span></td></tr>'
+        }
     }
     else {
-        productosTb.innerHTML += '<tr><td><span class="text-danger">No hay productos en este almacén</span></td></tr>'
+        productosTb.innerHTML += '<tr><td><span class="text-secondary">Selecciona un almacén</span></td></tr>';
     }
 }
 
@@ -94,16 +100,27 @@ const handleAgregarProductoSubmit = () => {
 const initBtnBorrarAlmacen = () => {
     let btns = document.querySelectorAll('.btn-borrar-almacen');
     btns.forEach(btn => {
-        if (getAlmacen(btn.getAttribute('data-delete')).productos === 0) {
+        if (getAlmacen(btn.getAttribute('data-delete')).productos.length === 0) {
+            // Si el almacén NO tiene productos, se puede borrar:
+            btn.classList.remove('disabled'); // Habilitar botón
+            btn.parentElement.removeAttribute('data-bs-toggle'); // Remover tooltip
+
             btn.addEventListener('click', (event) => {
                 slugAlmacen = event.target.getAttribute('data-delete');
+                borrarAlmacen(slugAlmacen);
                 
-
-    
+                listarAlmacenes();
+                // Si el almacén que se borra es el mismo que estaba seleccionado en Productos resetea la selección
+                if (slugAlmacen === OPTIONS.productosAlmacenSeleccionado) {
+                    OPTIONS.productosAlmacenSeleccionado = '...';
+                }
+                // Refresca el listado de productos con el último almacén seleccionado
+                listarProductos(OPTIONS.productosAlmacenSeleccionado);
+                // Recupera el último almacén seleccionado
+                mostrarAlmacenSelect.value = OPTIONS.productosAlmacenSeleccionado;
             });
         }
     });
-
 }
 
 /*** INIT ***/
